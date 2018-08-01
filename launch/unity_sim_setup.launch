@@ -1,0 +1,13 @@
+<launch>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher"
+        name="robot_state_publisher" />
+
+  <node pkg="tf2_ros" type="buffer_server" name="tf2_buffer_server" />
+ 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="fake_localization"
+        output="screen" args="0 0 0 0 0 0 map odom" />
+
+  <node name="robot_base_to_tf_publisher" pkg="ease_ph_pr2_scenes" type="robot_base_to_tf_publisher.py" args="" respawn="True" output="screen" />
+
+</launch> 

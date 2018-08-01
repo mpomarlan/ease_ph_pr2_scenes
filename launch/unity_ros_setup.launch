@@ -1,0 +1,14 @@
+<launch>
+
+  <arg name="port" default="9090" />
+
+  <include file="$(find iai_pr2_description)/launch/upload_pr2.launch" />
+
+  <!-- Web-related nodes for visualization in browser -->
+  <node name="tf2_web_republisher" pkg="tf2_web_republisher" type="tf2_web_republisher" args="" respawn="true" output="screen" />
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+    <arg name="port" value="$(arg port)" />
+  </include>
+  <node name="file_server" pkg="file_server" type="file_server" output="screen"/> 
+
+</launch>

@@ -1,0 +1,13 @@
+<launch>
+
+  <arg name="port" default="9090" />
+
+  <include file="$(find ease_ph_pr2_scenes)/launch/unity_ros_setup.launch">
+    <arg name="port" value="$(arg port)" />
+  </include>
+  <include file="$(find ease_ph_pr2_scenes)/launch/unity_sim_setup.launch" />
+
+  <node name="nodding_signal" pkg="ease_ph_pr2_scenes" type="nodding_signal.py" args="" respawn="True" output="screen" />
+
+</launch> 
+
