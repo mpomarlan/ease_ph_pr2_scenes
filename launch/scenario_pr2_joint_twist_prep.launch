@@ -1,0 +1,19 @@
+<launch>
+
+  <arg name="port" default="9090" />
+
+  <include file="$(find ease_ph_pr2_scenes)/launch/unity_ros_setup.launch">
+    <arg name="port" value="$(arg port)" />
+  </include>
+  <include file="$(find ease_ph_pr2_scenes)/launch/unity_sim_setup.launch" />
+
+  <include file="$(find giskard_ros)/launch/joint_sep.launch">
+    <arg name="robot_description_parameter_name" value="/robot_description" />
+    <arg name="output_twist" value="true" />
+  </include>
+
+  <node pkg="ease_ph_pr2_scenes" type="joint_state_retiming.py" name="joint_state_retiming" args="" respawn="True" output="screen" />
+
+
+</launch>
+

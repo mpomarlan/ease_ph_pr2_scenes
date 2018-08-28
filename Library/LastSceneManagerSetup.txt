@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/giskard_interactive_markers_demo.unity
+- path: Assets/Scenes/nodding.unity
   isLoaded: 1
   isActive: 1

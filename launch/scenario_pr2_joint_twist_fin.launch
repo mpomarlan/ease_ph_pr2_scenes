@@ -1,0 +1,37 @@
+ <launch>
+
+  <node pkg="giskard_ros" type="whole_body_controller" name="qp_controller" respawn="True" output="screen">
+      <rosparam command="load"
+      	file="$(find giskard_pr2)/config/pr2_whole_body_controller.yaml"/>
+      <param name="controller_descriptions/cart_cart" 
+           textfile="$(find giskard_pr2)/controller_specs/iai_pr2_cart_cart_control.yaml" />
+      <param name="controller_descriptions/joint_joint" 
+           textfile="$(find giskard_pr2)/controller_specs/pr2_joint_joint_control.yaml" />
+      <param name="controller_descriptions/joint_cart" 
+           textfile="$(find giskard_pr2)/controller_specs/pr2_joint_cart_control.yaml" />
+      <param name="controller_descriptions/cart_joint" 
+           textfile="$(find giskard_pr2)/controller_specs/iai_pr2_cart_joint_control.yaml" />
+      <remap from="~joint_states" to="/joint_states" />
+      <remap from="~velocity_cmd" to="/whole_body_controller/velocity_controller/command" />
+  </node>
+
+  <node pkg="giskard_ros" type="controller_action_server" respawn="True" name="qp_controller_action_interface" 
+          output="screen">
+      <remap from="~command" to="qp_controller/goal" />
+      <remap from="~feedback" to="qp_controller/feedback" />
+      <remap from="~move" to="qp_controller/command" />
+      <rosparam command="load"
+          file="$(find giskard_pr2)/config/pr2_controller_action_server.yaml" />
+  </node>
+
+  <node pkg="giskard_ros" type="whole_body_interactive_markers" 
+        name="whole_body_interactive_markers" output="screen">
+    <rosparam command="load"
+              file="$(find giskard_pr2)/config/pr2_interactive_markers.yaml" />
+  </node>
+
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+        args="-d $(find giskard_pr2)/config/interactive.rviz" />
+
+</launch>
+

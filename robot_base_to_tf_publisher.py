@@ -5,10 +5,12 @@ import tf.transformations
 from geometry_msgs.msg import PoseStamped, TransformStamped
 from tf2_msgs.msg import TFMessage
 
+have_data = False
+
 def callback(pub, data):
     da_tf = TFMessage()
     base_transform = TransformStamped()
-    base_transform.header.stamp = data.header.stamp
+    base_transform.header.stamp = rospy.get_rostime()
     base_transform.header.frame_id = "odom"
     base_transform.child_frame_id = "base_footprint"
     base_transform.transform.translation.x = data.pose.position.x
