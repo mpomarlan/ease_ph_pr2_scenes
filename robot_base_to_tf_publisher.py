@@ -7,12 +7,12 @@ from tf2_msgs.msg import TFMessage
 
 have_data = False
 
-def callback(pub, data):
+def callback(pub, odom, robot, data):
     da_tf = TFMessage()
     base_transform = TransformStamped()
     base_transform.header.stamp = rospy.get_rostime()
-    base_transform.header.frame_id = "odom"
-    base_transform.child_frame_id = "base_footprint"
+    base_transform.header.frame_id = odom
+    base_transform.child_frame_id = robot
     base_transform.transform.translation.x = data.pose.position.x
     base_transform.transform.translation.y = data.pose.position.y
     base_transform.transform.translation.z = data.pose.position.z
@@ -33,9 +33,16 @@ def listener():
     # run simultaneously.
     rospy.init_node('robot_base_to_tf_publisher', anonymous=True)
 
+    odom = 'odom'
+    if rospy.has_param('odom_frame'):
+        odom = rospy.get_param('odom_frame')
+    robot = 'base_footprint'
+    if rospy.has_param('root_frame'):
+        odom = rospy.get_param('root_frame')
+
     pub = rospy.Publisher('/tf', TFMessage, queue_size=10)
 
-    rospy.Subscriber("/pr2/base_pose", PoseStamped, lambda x: callback(pub, x))
+    rospy.Subscriber("/pr2/base_pose", PoseStamped, lambda x: callback(pub, odom, robot, x))
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
