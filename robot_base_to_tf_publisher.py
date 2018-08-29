@@ -16,10 +16,11 @@ def callback(pub, data):
     base_transform.transform.translation.x = data.pose.position.x
     base_transform.transform.translation.y = data.pose.position.y
     base_transform.transform.translation.z = data.pose.position.z
-    base_transform.transform.rotation.x = data.pose.orientation.x
-    base_transform.transform.rotation.y = data.pose.orientation.y
+    # Some weird things happening with rotations in Unity, so do some rearrangement
+    base_transform.transform.rotation.x = data.pose.orientation.y
+    base_transform.transform.rotation.y = data.pose.orientation.x
     base_transform.transform.rotation.z = data.pose.orientation.z
-    base_transform.transform.rotation.w = data.pose.orientation.w
+    base_transform.transform.rotation.w = -data.pose.orientation.w
     da_tf.transforms = [base_transform]
     pub.publish(da_tf)
     

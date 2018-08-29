@@ -19,14 +19,15 @@ if __name__ == '__main__':
                 (trans,rot) = listener.lookupTransform('/odom', '/base_footprint', rospy.Time(0))
                 da_pose=PoseStamped()
                 da_pose.header.stamp = rospy.get_rostime()
-                da_pose.header.frame_id = '/base_footprint'
+                da_pose.header.frame_id = '/odom'
                 da_pose.pose.position.x = trans[0]
                 da_pose.pose.position.y = trans[1]
                 da_pose.pose.position.z = trans[2]
-                da_pose.pose.orientation.x = rot[0]
-                da_pose.pose.orientation.y = rot[1]
+                # Some weird things happening with rotations in Unity, so do some rearrangement
+                da_pose.pose.orientation.x = rot[1]
+                da_pose.pose.orientation.y = rot[0]
                 da_pose.pose.orientation.z = rot[2]
-                da_pose.pose.orientation.w = rot[3]
+                da_pose.pose.orientation.w = -rot[3]
                 pub.publish(da_pose)
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                 continue
