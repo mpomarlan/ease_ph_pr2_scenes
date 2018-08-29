@@ -1,4 +1,5 @@
 <launch>
+  <arg name="unity_provides_base_pose" default="true" />
 
   <node pkg="robot_state_publisher" type="robot_state_publisher"
         name="robot_state_publisher" />
@@ -8,6 +9,15 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="fake_localization"
         output="screen" args="0 0 0 0 0 0 map odom" />
 
-  <node name="robot_base_to_tf_publisher" pkg="ease_ph_pr2_scenes" type="robot_base_to_tf_publisher.py" args="" respawn="True" output="screen" />
+  <node if="$(arg unity_provides_base_pose)" name="robot_base_to_tf_publisher" pkg="ease_ph_pr2_scenes" type="robot_base_to_tf_publisher.py" args="" respawn="True" output="screen" />
+
+  <node unless="$(arg unity_provides_base_pose)" pkg="iai_naive_kinematics_sim" type="navp_faker_tf.py" name="navp_faker" output="screen" >
+  	<rosparam param="odom_frame">odom</rosparam>
+  	<rosparam param="root_frame">base_footprint</rosparam>
+  </node>
+  <node unless="$(arg unity_provides_base_pose)" name="tf_to_robot_base_publisher" pkg="ease_ph_pr2_scenes" type="tf_to_robot_base_publisher.py" output="screen" >
+  	<rosparam param="odom_frame">odom</rosparam>
+  	<rosparam param="root_frame">base_footprint</rosparam>
+  </node>
 
 </launch> 

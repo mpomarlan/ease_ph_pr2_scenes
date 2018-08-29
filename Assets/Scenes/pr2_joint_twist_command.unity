@@ -1101,7 +1101,6 @@ GameObject:
   - component: {fileID: 44247862}
   - component: {fileID: 44247860}
   - component: {fileID: 44247863}
-  - component: {fileID: 44247861}
   - component: {fileID: 44247864}
   - component: {fileID: 44247878}
   - component: {fileID: 44247877}
@@ -1117,6 +1116,7 @@ GameObject:
   - component: {fileID: 44247867}
   - component: {fileID: 44247866}
   - component: {fileID: 44247865}
+  - component: {fileID: 44247861}
   m_Layer: 0
   m_Name: RosConnector
   m_TagString: Untagged
@@ -1213,12 +1213,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 44247857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec5e1a83d41eab447ae84c65a4aac114, type: 3}
+  m_Script: {fileID: 11500000, guid: 599399f87ee56d541ac06a68cbe1fc1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /pr2/base_pose
-  MessageProvider: {fileID: 74066993}
-  Timestep: 0.1
+  TimeStep: 0
+  MessageReceiver: {fileID: 74066993}
 --- !u!114 &44247862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1234,8 +1234,8 @@ MonoBehaviour:
   EnableRigidbodiesGravity: 0
   SetRigidbodiesKinematic: 1
   SetMeshCollidersConvex: 1
-  AddPoseProvider: 1
-  AddPoseReceiver: 0
+  AddPoseProvider: 0
+  AddPoseReceiver: 1
   AddJointStateReaders: 1
   jointStateProvider: {fileID: 44247860}
   AddJointStateWriters: 0
@@ -1631,10 +1631,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 74066991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ef14b0e18cc5d4b81e085efe6ddf6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8447b827fab98c748905ea517332b36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrameId: /pr2/base_pose
+  PoseMessageType: 0
 --- !u!1 &75539418
 GameObject:
   m_ObjectHideFlags: 0
