@@ -14,7 +14,7 @@ def talker():
     t = 0.0
     while not rospy.is_shutdown():
         da_twist = Twist()
-        da_twist.angular.z = 10*numpy.sin(2*3.14159*0.2*t)
+        da_twist.angular.x = 10*numpy.sin(2*3.14159*0.2*t)
         pub.publish(da_twist)
         rate.sleep()
         t += 1.0/f
