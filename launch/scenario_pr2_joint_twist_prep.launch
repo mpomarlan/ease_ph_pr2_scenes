@@ -9,7 +9,7 @@
     <arg name="unity_provides_base_pose" value="false"/>
   </include>
 
-  <include file="$(find giskard_ros)/launch/joint_sep.launch">
+  <include file="$(find ease_ph_pr2_scenes)/launch/joint_sep.launch">
     <arg name="robot_description_parameter_name" value="/robot_description" />
     <arg name="output_twist" value="true" />
   </include>
